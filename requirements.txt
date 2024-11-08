@@ -1,0 +1,26 @@
+pandas
+numpy
+matplotlib
+plotly
+seaborn
+PyYAML
+scipy
+scikit-learn
+ipykernel
+dill
+dnspython
+pymongo
+evidently
+fastapi
+uvicorn
+jinja2
+from-root
+httptools
+imblearn
+python-dotenv
+boto3
+botocore-stubs
+mypy-boto3-s3
+types-s3transfer
+neuro-mf
+-e .

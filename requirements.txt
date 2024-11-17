@@ -13,7 +13,7 @@ ipykernel
 dill
 dnspython
 pymongo
-evidently
+evidently==0.2.8
 fastapi
 uvicorn
 jinja2

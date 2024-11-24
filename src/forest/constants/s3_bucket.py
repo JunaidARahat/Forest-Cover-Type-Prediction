@@ -1,0 +1,2 @@
+TRAINING_BUCKET_NAME="forest-model2024"
+PREDICTION_BUCKET_NAME="forest-pred-data1"

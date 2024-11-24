@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from from_root import from_root
 from src.forest.constants import *
+from src.forest.constants import prediction_pipeline
 
 @dataclass
 class DataIngestionConfig:
@@ -21,7 +22,7 @@ class DataValidationConfig:
                                                DATA_VALIDATION_DRIFT_REPORT_FILE_NAME)
         
 
-@dataclass
+@dataclass 
 class DataTransformationConfig:
     def __init__(self):
         self.data_transformation_dir: str = os.path.join(from_root(),ARTIFACTS_DIR, DATA_TRANSFORMATION_DIR_NAME)
@@ -42,3 +43,26 @@ class ModelTrainerConfig:
         self.trained_model_file_path: str = os.path.join(self.model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, MODEL_FILE_NAME)
         self.expected_accuracy: float = MODEL_TRAINER_EXPECTED_SCORE
         self.model_config_file_path: str = MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
+
+
+@dataclass
+class ModelEvaluationConfig:
+    def __init__(self):
+        self.changed_threshold_score: float = MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
+        self.bucket_name: str = MODEL_PUSHER_BUCKET_NAME
+        self.s3_model_key_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME)
+
+@dataclass
+class ModelPusherConfig:
+    bucket_name: str = MODEL_PUSHER_BUCKET_NAME
+    s3_model_key_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME)
+
+@dataclass
+class PredictionPipelineConfig:
+    data_bucket_name: str = prediction_pipeline.PREDICTION_DATA_BUCKET
+    data_file_path: str = prediction_pipeline.PREDICTION_INPUT_FILE_NAME
+    model_bucket_name: str = prediction_pipeline.MODEL_BUCKET_NAME
+    model_file_path: str = os.path.join(MODEL_PUSHER_S3_KEY, MODEL_FILE_NAME) #/model-registry/model.pkl
+    output_file_name:str = prediction_pipeline.PREDICTION_OUTPUT_FILE_NAME
+    model_trainer_dir: str = os.path.join(from_root(),ARTIFACTS_DIR, MODEL_TRAINER_DIR_NAME)
+    trained_model_file_path: str = os.path.join(model_trainer_dir, MODEL_TRAINER_TRAINED_MODEL_DIR, MODEL_FILE_NAME)
